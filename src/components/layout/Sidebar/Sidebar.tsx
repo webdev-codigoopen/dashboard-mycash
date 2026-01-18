@@ -5,11 +5,13 @@ import { ROUTES, ROUTE_NAMES } from '@/constants'
 import SidebarLogo from './SidebarLogo'
 import SidebarItem from './SidebarItem'
 import SidebarUser from './SidebarUser'
-import homeIcon from '@/assets/icons/fi-rr-home.svg'
-import cardsIcon from '@/assets/icons/fi-rr-credit-card.svg'
-import transactionsIcon from '@/assets/icons/fi-rr-transactions.svg'
-import profileIcon from '@/assets/icons/fi-rr-profile.svg'
-import angleRightIcon from '@/assets/icons/fi-rr-angle-right.svg'
+import {
+  RiHome4Line,
+  RiIdCardLine,
+  RiFileListLine,
+  RiUserLine,
+  RiArrowRightSLine,
+} from 'react-icons/ri'
 
 /**
  * Sidebar principal
@@ -52,10 +54,10 @@ export default function Sidebar() {
         <SidebarLogo isExpanded={isExpanded} />
 
         <nav className="flex flex-col" style={{ gap: '12px' }}>
-          <SidebarItem to={ROUTES.DASHBOARD} iconSrc={homeIcon} label={ROUTE_NAMES[ROUTES.DASHBOARD]} isExpanded={isExpanded} />
-          <SidebarItem to={ROUTES.CARDS} iconSrc={cardsIcon} label={ROUTE_NAMES[ROUTES.CARDS]} isExpanded={isExpanded} />
-          <SidebarItem to={ROUTES.TRANSACTIONS} iconSrc={transactionsIcon} label={ROUTE_NAMES[ROUTES.TRANSACTIONS]} isExpanded={isExpanded} />
-          <SidebarItem to={ROUTES.PROFILE} iconSrc={profileIcon} label={ROUTE_NAMES[ROUTES.PROFILE]} isExpanded={isExpanded} />
+          <SidebarItem to={ROUTES.DASHBOARD} icon={<RiHome4Line />} label={ROUTE_NAMES[ROUTES.DASHBOARD]} isExpanded={isExpanded} />
+          <SidebarItem to={ROUTES.CARDS} icon={<RiIdCardLine />} label={ROUTE_NAMES[ROUTES.CARDS]} isExpanded={isExpanded} />
+          <SidebarItem to={ROUTES.TRANSACTIONS} icon={<RiFileListLine />} label={ROUTE_NAMES[ROUTES.TRANSACTIONS]} isExpanded={isExpanded} />
+          <SidebarItem to={ROUTES.PROFILE} icon={<RiUserLine />} label={ROUTE_NAMES[ROUTES.PROFILE]} isExpanded={isExpanded} />
         </nav>
       </div>
 
@@ -90,9 +92,7 @@ export default function Sidebar() {
         }}
         aria-label={isExpanded ? 'Colapsar sidebar' : 'Expandir sidebar'}
       >
-        <motion.img
-          src={angleRightIcon}
-          alt="Toggle sidebar"
+        <RiArrowRightSLine
           className="w-4 h-4"
           style={{ transform: isExpanded ? 'rotate(180deg)' : 'rotate(0deg)' }}
         />

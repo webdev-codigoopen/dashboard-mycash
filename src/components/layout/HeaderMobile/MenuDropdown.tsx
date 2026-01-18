@@ -2,11 +2,13 @@ import { AnimatePresence, motion } from 'framer-motion'
 import { Link, useLocation } from 'react-router-dom'
 import { ROUTES, ROUTE_NAMES } from '@/constants'
 import SidebarLogo from '../Sidebar/SidebarLogo'
-import homeIcon from '@/assets/icons/fi-rr-home.svg'
-import cardsIcon from '@/assets/icons/fi-rr-credit-card.svg'
-import transactionsIcon from '@/assets/icons/fi-rr-transactions.svg'
-import profileIcon from '@/assets/icons/fi-rr-profile.svg'
-import angleRightIcon from '@/assets/icons/fi-rr-angle-right.svg'
+import {
+  RiHome4Line,
+  RiIdCardLine,
+  RiFileListLine,
+  RiUserLine,
+  RiArrowRightSLine,
+} from 'react-icons/ri'
 
 interface MenuDropdownProps {
   isOpen: boolean
@@ -17,10 +19,10 @@ export default function MenuDropdown({ isOpen, onClose }: MenuDropdownProps) {
   const location = useLocation()
 
   const menuItems = [
-    { to: ROUTES.DASHBOARD, icon: homeIcon, label: ROUTE_NAMES[ROUTES.DASHBOARD] },
-    { to: ROUTES.CARDS, icon: cardsIcon, label: ROUTE_NAMES[ROUTES.CARDS] },
-    { to: ROUTES.TRANSACTIONS, icon: transactionsIcon, label: ROUTE_NAMES[ROUTES.TRANSACTIONS] },
-    { to: ROUTES.PROFILE, icon: profileIcon, label: ROUTE_NAMES[ROUTES.PROFILE] },
+    { to: ROUTES.DASHBOARD, icon: <RiHome4Line />, label: ROUTE_NAMES[ROUTES.DASHBOARD] },
+    { to: ROUTES.CARDS, icon: <RiIdCardLine />, label: ROUTE_NAMES[ROUTES.CARDS] },
+    { to: ROUTES.TRANSACTIONS, icon: <RiFileListLine />, label: ROUTE_NAMES[ROUTES.TRANSACTIONS] },
+    { to: ROUTES.PROFILE, icon: <RiUserLine />, label: ROUTE_NAMES[ROUTES.PROFILE] },
   ]
 
   return (
@@ -50,7 +52,7 @@ export default function MenuDropdown({ isOpen, onClose }: MenuDropdownProps) {
                 className="w-10 h-10 rounded-full flex items-center justify-center hover:bg-neutral-100 transition-colors duration-200"
                 aria-label="Fechar menu"
               >
-                <img src={angleRightIcon} alt="Fechar menu" className="w-4 h-4 rotate-180" />
+                <RiArrowRightSLine className="w-4 h-4 rotate-180" />
               </button>
             </div>
 
@@ -68,7 +70,7 @@ export default function MenuDropdown({ isOpen, onClose }: MenuDropdownProps) {
                       ${isActive ? 'bg-primary text-secondary-dark' : 'text-neutral-500 hover:bg-neutral-300/20'}
                     `}
                   >
-                    <img src={item.icon} alt={item.label} className="w-5 h-5" />
+                    <div className="flex-shrink-0 text-lg">{item.icon}</div>
                     <span className="text-label-lg font-semibold">{item.label}</span>
                   </Link>
                 )
