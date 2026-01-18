@@ -10,8 +10,8 @@ import {
   RiIdCardLine,
   RiFileListLine,
   RiUserLine,
-  RiArrowRightSLine,
 } from 'react-icons/ri'
+import angleRightIcon from '@/assets/icons/angle-right-icon.svg'
 
 /**
  * Sidebar principal
@@ -38,19 +38,20 @@ export default function Sidebar() {
         duration: 0.3,
         ease: 'easeInOut',
       }}
-      className="
+      className={`
         fixed left-0 top-0 h-screen
         bg-surface border-r border-neutral-300
         flex flex-col
         z-40
-      "
+        ${isExpanded ? '' : 'items-center'}
+      `}
       style={{
         padding: '32px',
         gap: '56px',
       }}
     >
       {/* Seção superior */}
-      <div className="flex flex-col" style={{ gap: '56px' }}>
+      <div className={`flex flex-col ${isExpanded ? '' : 'items-center'}`} style={{ gap: '56px' }}>
         <SidebarLogo isExpanded={isExpanded} />
 
         <nav className="flex flex-col" style={{ gap: '12px' }}>
@@ -92,9 +93,14 @@ export default function Sidebar() {
         }}
         aria-label={isExpanded ? 'Colapsar sidebar' : 'Expandir sidebar'}
       >
-        <RiArrowRightSLine
+        <motion.img
+          src={angleRightIcon}
+          alt="Toggle sidebar"
           className="w-4 h-4"
-          style={{ transform: isExpanded ? 'rotate(180deg)' : 'rotate(0deg)' }}
+          style={{ 
+            transform: isExpanded ? 'rotate(180deg)' : 'rotate(0deg)',
+            transition: 'transform 0.3s ease-in-out',
+          }}
         />
       </motion.button>
     </motion.aside>

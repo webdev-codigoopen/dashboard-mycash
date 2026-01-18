@@ -28,10 +28,13 @@ export default function SidebarLogo({ isExpanded }: SidebarLogoProps) {
           key="logo-close"
           src={logoClose}
           alt="mycash+"
-          className="h-10 w-10"
           initial={{ opacity: 0, scale: 0.8 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 0.3 }}
+          style={{
+            width: '45px',
+            height: '43px',
+          }}
         />
       )}
     </div>

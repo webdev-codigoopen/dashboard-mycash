@@ -19,7 +19,7 @@ export default function SidebarUser({
   avatarUrl,
 }: SidebarUserProps) {
   return (
-    <div className="flex items-center gap-3">
+    <div className={`flex items-center ${isExpanded ? 'gap-3' : 'justify-center'}`}>
       {/* Avatar - sempre visível */}
       <div className="flex-shrink-0 w-6 h-6 rounded-full bg-neutral-300 overflow-hidden">
         {avatarUrl ? (
