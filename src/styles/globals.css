@@ -1,0 +1,59 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  body {
+    @apply bg-background text-neutral-1100 font-sans;
+    font-family: 'Inter', sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  /* Variáveis CSS customizadas para uso direto quando necessário */
+  :root {
+    /* Semânticas */
+    --color-primary: #D7FF00;
+    --color-secondary-dark: #060A11;
+    --color-secondary-light: #E7E8EA;
+    --color-surface: #FFFFFF;
+    --color-background: #F5F6F8;
+
+    /* Primitivas - Neutral */
+    --color-neutral-0: #ffffff;
+    --color-neutral-300: #e5e7eb;
+    --color-neutral-400: #d1d5db;
+    --color-neutral-500: #9ca3af;
+    --color-neutral-1100: #080b12;
+
+    /* Primitivas - Brand */
+    --color-brand-700: #c4e703;
+
+    /* Primitivas - Colors */
+    --color-blue-600: #2a89ef;
+    --color-green-600: #15be78;
+    --color-red-600: #e61e32;
+
+    /* Espaçamento */
+    --spacing-0: 0;
+    --spacing-8: 8px;
+    --spacing-12: 12px;
+    --spacing-16: 16px;
+    --spacing-20: 20px;
+    --spacing-24: 24px;
+    --spacing-32: 32px;
+    --spacing-56: 56px;
+
+    /* Border Radius */
+    --radius-sm: 2px;
+    --radius-md: 20px;
+    --radius-full: 100px;
+  }
+}
+
+@layer utilities {
+  /* Utilitários customizados */
+  .text-balance {
+    text-wrap: balance;
+  }
+}
