@@ -4,6 +4,8 @@ import ExpenseCard from '@/components/dashboard/ExpenseCard'
 import DashboardHeader from '@/components/dashboard/DashboardHeader'
 import ExpensesByCategoryCarousel from '@/components/dashboard/ExpensesByCategoryCarousel'
 import FinancialFlowChart from '@/components/dashboard/FinancialFlowChart'
+import CreditCardsWidget from '@/components/dashboard/CreditCardsWidget'
+import UpcomingExpensesWidget from '@/components/dashboard/UpcomingExpensesWidget'
 
 /**
  * Página principal - Dashboard
@@ -45,17 +47,49 @@ export default function Dashboard() {
           </div>
         </div>
 
-        {/* Carrossel de Gastos por Categoria */}
-        <div className="mb-8">
-          <h2 className="text-heading-sm font-bold text-secondary-dark mb-4">
-            Gastos por Categoria
-          </h2>
-          <ExpensesByCategoryCarousel />
+        {/* Grid: Carrossel e Widget de Cartões */}
+        <div
+          className="
+            grid
+            grid-cols-1
+            lg:grid-cols-2
+            gap-6
+            mb-8
+          "
+        >
+          {/* Carrossel de Gastos por Categoria */}
+          <div>
+            <h2 className="text-heading-sm font-bold text-secondary-dark mb-4">
+              Gastos por Categoria
+            </h2>
+            <ExpensesByCategoryCarousel />
+          </div>
+
+          {/* Widget de Cartões de Crédito */}
+          <div>
+            <CreditCardsWidget />
+          </div>
         </div>
 
-        {/* Gráfico de Fluxo Financeiro */}
-        <div className="mb-8">
-          <FinancialFlowChart />
+        {/* Grid: Gráfico e Próximas Despesas */}
+        <div
+          className="
+            grid
+            grid-cols-1
+            lg:grid-cols-2
+            gap-6
+            mb-8
+          "
+        >
+          {/* Gráfico de Fluxo Financeiro */}
+          <div>
+            <FinancialFlowChart />
+          </div>
+
+          {/* Widget de Próximas Despesas */}
+          <div>
+            <UpcomingExpensesWidget />
+          </div>
         </div>
       </div>
     </div>

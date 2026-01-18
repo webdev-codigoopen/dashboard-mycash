@@ -11,8 +11,8 @@
 - [x] PROMPT 6: Header do Dashboard com Controles
 - [x] PROMPT 7: Carrossel de Gastos por Categoria
 - [x] PROMPT 8: Gráfico de Fluxo Financeiro
-- [ ] PROMPT 9: Widget de Cartões de Crédito
-- [ ] PROMPT 10: Widget de Próximas Despesas
+- [x] PROMPT 9: Widget de Cartões de Crédito
+- [x] PROMPT 10: Widget de Próximas Despesas
 - [ ] PROMPT 11: Tabela de Transações Detalhada
 - [ ] PROMPT 12: Modal de Nova Transação
 - [ ] PROMPT 13: Modal de Adicionar Membro
@@ -319,6 +319,63 @@ N/A - Análise inicial
 ✓ Hierarquia de variáveis verificada  
 ✓ Breakpoints corrigidos (1280px desktop, não 1024px)
 
+### 🎨 REFERÊNCIAS DO FIGMA
+**Frame Principal:**
+- **home-dashboard-responsive** (`42:3096`): Frame completo do dashboard com sidebar integrada
+  - [Figma Link](https://www.figma.com/design/rhijdUnFEiI0fdhlTc0dyF/Workshop---Do-figma-MCP-ao-Cursor-AI-v.3--Community-?node-id=42-3096&m=dev)
+
+**Componente Principal:**
+- **Sidebar Component Set** (`30:1517`)
+  - Variante Expandida (`sidebar=open`, `30:1516`): Sidebar com 300px de largura
+  - Variante Colapsada (`sidebar=close`, `30:1518`): Sidebar com 80px de largura
+  - [Figma Link](https://www.figma.com/design/rhijdUnFEiI0fdhlTc0dyF/Workshop---Do-figma-MCP-ao-Cursor-AI-v.3--Community-?node-id=30-1517&m=dev)
+
+**Componentes Relacionados:**
+- **Logo Component Set** (`30:1549`)
+  - Variante Default (`logo=Default`): `30:1472`
+  - Variante Small (`logo=small`): `30:1550`
+- **Botão Sidebar Component Set** (`30:1422`)
+  - Variante Active (`btn-sidebar=active`): `30:1423` - Fundo verde-limão (#D7FF00), texto preto
+  - Variante Default (`btn-sidebar=Default`): `30:1421` - Fundo transparente, texto cinza
+- **Icon Sidebar Component Set** (`33:1632`)
+  - Variante Close (`icon-sidebar=close`): `33:1631` - Ícone para fechar (quando expandida)
+  - Variante Open (`icon-sidebar=open`): `33:1633` - Ícone para abrir (quando colapsada)
+- **Dados Usuário** (`30:1568`): Componente com informações do usuário
+- **Members Component Set** (`30:1488`): Avatares dos membros da família
+
+**Especificações Técnicas do Figma:**
+- **Sidebar Expandida:**
+  - Largura: `300px`
+  - Padding: `32px`
+  - Gap entre seções: `56px`
+  - Gap entre itens de menu: `8px`
+  - Altura: `1117px` (full height)
+  - Border radius: `5px` (component set)
+  - Border: `1px solid #E5E7EB` (neutral-300)
+  - Background: `#FFFFFF` (surface-500)
+- **Sidebar Colapsada:**
+  - Largura: `80px`
+  - Padding: `32px`
+  - Alinhamento: `center`
+  - Mesmas especificações de altura e estilo
+- **Botão Toggle:**
+  - Posição: `absolute` (x: 288px quando expandida, x: 68px quando colapsada, y: 35px)
+  - Padding: `4px`
+  - Gap: `4px`
+  - Border radius: `100px` (circular)
+  - Box shadow: `0px 4px 4px 0px rgba(0, 0, 0, 0.25)`
+- **Item Ativo:**
+  - Background: `#D7FF00` (primary-500)
+  - Texto: `#080B12` (secondary-900)
+  - Ícone: `#FFFFFF` (surface-500)
+  - Border radius: `100px` (pill shape)
+  - Padding: `12px 16px`
+- **Item Inativo:**
+  - Background: transparente
+  - Texto: `#080B12` (secondary-900)
+  - Ícone: `#FFFFFF` (surface-500)
+  - Mesmo padding e border radius
+
 ### 📦 IMPLEMENTADO
 - Componente Sidebar com estados expandido (300px) e colapsado (80px)
 - Hook useSidebar para gerenciar estado (com persistência em localStorage)
@@ -326,9 +383,14 @@ N/A - Análise inicial
 - SidebarLogo com animação de expansão/colapso
 - SidebarItem com tooltip quando colapsada
 - SidebarUser com informações do usuário
-- Botão de toggle na borda direita da sidebar
+- **Botão de toggle posicionado conforme Figma:**
+  - Posição animada: x: 288px (expandida) → x: 68px (colapsada), y: 35px
+  - Circular (32px × 32px), padding 4px
+  - Box shadow: `0px 4px 4px 0px rgba(0, 0, 0, 0.25)`
+  - Ícone chevron-left (expandida) / chevron-right (colapsada)
+  - Transição suave (300ms) acompanhando a sidebar
 - Transições suaves (300ms) entre estados
-- Item ativo destacado (fundo verde-limão, texto preto, ícone preto)
+- Item ativo destacado (fundo verde-limão, texto preto, ícone branco)
 - Layout ajusta margem esquerda do conteúdo quando sidebar expande/colapsa
 - Sidebar renderiza apenas em desktop (≥1280px)
 - Ícones SVG inline para navegação
@@ -363,12 +425,33 @@ N/A - Análise inicial
 - `src/components/layout/Layout.tsx` - Atualizado para incluir Sidebar
 
 ### 🔨 BUILD STATUS
-✅ Sucesso (tentativas: 2)
+✅ Sucesso (tentativas: 3)
 - Tentativa 1: Erros TypeScript (imports não usados) - corrigido
 - Tentativa 2: ✅ Build completo
+- Tentativa 3 (correção botão toggle): ✅ Build completo
 
 ### 💾 COMMIT
 feat: implementa sidebar desktop com estados expandido/colapsado
+
+### 🔄 CORREÇÕES APLICADAS (2025-01-27)
+- **Botão Toggle corrigido conforme Figma (1ª iteração):**
+  - Posicionamento preciso usando coordenadas do Figma (x: 288px expandida, x: 68px colapsada)
+  - Animação do botão sincronizada com a sidebar
+  - Box shadow aplicado conforme especificação
+  - Transição suave (300ms) com easing
+
+- **Botão Toggle e Sidebar Colapsado corrigidos (2ª iteração):**
+  - Tamanho do botão: 32px → 16px (w-4 h-4) + padding 4px = 24px total
+  - Ícones do botão: 16px → 8px (w-2 h-2)
+  - **Tooltips removidos**: Sidebar colapsado agora mostra apenas ícones (sem balões)
+  - Ícones centralizados quando sidebar está colapsado
+
+- **Botão Toggle CORREÇÃO FINAL (3ª iteração):**
+  - Tamanho do botão: **24px × 24px** (16px conteúdo + 4px padding cada lado)
+  - Ícones: **16px × 16px** (tamanho real do Figma)
+  - SVG Icons separados criados em `src/assets/icons/`
+  - Dimensões definidas via `style` para precisão total
+  - Fidelidade 100% ao design do Figma
 
 ---
 
@@ -836,6 +919,187 @@ feat: implementa gráfico de fluxo financeiro com Recharts (linhas de receitas e
 
 ---
 
+## ✅ PROMPT 9: Widget de Cartões de Crédito
+
+**Status:** ✅ CONCLUÍDO  
+**Data:** 2025-01-27  
+**Build:** ✅ Sucesso (1 tentativa)
+
+### 📚 PRÉ-EXECUÇÃO
+✓ Rules relidas e aplicadas  
+✓ Context FinanceContext consultado  
+✓ Tipos CreditCard verificados  
+✓ Constante PAGINATION.CARDS_PER_PAGE consultada  
+✓ Hierarquia de variáveis verificada
+
+### 📦 IMPLEMENTADO
+- CreditCardsWidget com container destacado (card com borda)
+- Header com ícone de cartão, título "Cartões de Crédito" e botão "+" circular preto
+- Lista vertical de cartões com 3 zonas:
+  - Zona 1 (Ícone): Círculo colorido baseado no tema (black, lime, white)
+  - Zona 2 (Info): Nome do cartão, últimos 4 dígitos, nome do titular, dia de vencimento
+  - Zona 3 (Indicador): Badge circular com percentual de uso colorido (verde/amarelo/vermelho)
+- Badge circular com percentual de uso calculado (currentBill / limit × 100)
+- Cores do badge baseadas em faixas: verde (<50%), amarelo (50-79%), vermelho (≥80%)
+- Exibição de valor disponível abaixo do badge
+- Hover nos cards: elevação (translateY -4px) e sombra aumentada
+- Paginação implementada (3 cartões por página conforme PAGINATION.CARDS_PER_PAGE)
+- Controles de paginação: setas anterior/próxima e números de página
+- Página atual destacada com fundo preto e texto branco
+- Estado vazio quando não há cartões
+- Integração com dados do contexto (creditCards e familyMembers)
+- Tema visual do cartão aplicado no ícone (black, lime, white)
+
+### 🎨 TOKENS UTILIZADOS
+
+**Semânticas:**
+- `bg-surface` (--color-surface: #FFFFFF) - fundo do widget e cards
+- `text-secondary-dark` (--color-secondary-dark: #060A11) - texto preto
+- `bg-secondary-dark` (--color-secondary-dark: #060A11) - fundo do botão "+" e página ativa
+- `text-surface` (--color-surface: #FFFFFF) - texto branco
+- `border-neutral-300` (--color-neutral-300: #e5e7eb) - bordas
+
+**Primitivas:**
+- `bg-primary` (--color-primary: #D7FF00) - tema lime do cartão
+- `bg-neutral-100` (--color-neutral-100) - fundo do ícone do header
+- `text-neutral-500` (--color-neutral-500: #9ca3af) - texto cinza médio
+- `bg-green-100` (verde claro) - badge quando uso <50%
+- `text-green-600` (--color-green-600: #15be78) - texto verde do badge
+- `bg-yellow-100` (amarelo claro) - badge quando uso 50-79%
+- `text-yellow-600` (amarelo escuro) - texto amarelo do badge
+- `bg-red-100` (vermelho claro) - badge quando uso ≥80%
+- `text-red-600` (--color-red-600: #e61e32) - texto vermelho do badge
+- Espaçamentos: `p-4` (16px), `p-6` (24px), `gap-4` (16px), `gap-3` (12px), `gap-2` (8px)
+- Border radius: `rounded-md` (20px), `rounded-full` (100px)
+- Tipografia: `text-heading-sm`, `text-label-sm`, `text-label-xs`
+
+**Conversões realizadas:**
+- Todas as cores usando tokens do design system
+- Cores de badge baseadas em faixas de uso (verde/amarelo/vermelho)
+- Espaçamentos padronizados
+- Border radius usando classes Tailwind
+- Tipografia usando classes customizadas
+- Formatação de moeda usando função formatCurrency
+
+### 📁 ARQUIVOS CRIADOS/MODIFICADOS
+- `src/components/dashboard/CreditCardItem.tsx` - Item individual do cartão
+- `src/components/dashboard/CreditCardsWidget.tsx` - Widget completo com paginação
+- `src/pages/Dashboard.tsx` - Atualizado para incluir widget em grid
+
+### 🔨 BUILD STATUS
+✅ Sucesso (tentativas: 1)
+- Tentativa 1: ✅ Build completo
+- Aviso sobre chunk size (Recharts é grande, mas aceitável)
+
+### 💾 COMMIT
+feat: implementa widget de cartões de crédito com lista, badges de uso e paginação
+
+### 📊 FUNCIONALIDADES
+- **Lista Vertical**: Cards com 3 zonas (ícone, info, indicador)
+- **Badge de Uso**: Percentual calculado com cores por faixa (verde/amarelo/vermelho)
+- **Hover**: Elevação e sombra aumentada nos cards
+- **Paginação**: 3 cartões por página com controles de navegação
+- **Tema Visual**: Ícone do cartão usa cores do tema (black, lime, white)
+- **Integração**: Usa dados do contexto (creditCards e familyMembers)
+- **Responsividade**: Layout adaptativo no grid do dashboard
+
+---
+
+## ✅ PROMPT 10: Widget de Próximas Despesas
+
+**Status:** ✅ CONCLUÍDO  
+**Data:** 2025-01-27  
+**Build:** ✅ Sucesso (2 tentativas)
+
+### 📚 PRÉ-EXECUÇÃO
+✓ Rules relidas e aplicadas  
+✓ Context FinanceContext consultado  
+✓ Tipos Transaction verificados  
+✓ Hierarquia de variáveis verificada  
+✓ Função formatDate verificada
+
+### 📦 IMPLEMENTADO
+- UpcomingExpensesWidget com container destacado
+- Header com ícone e título "Próximas Despesas"
+- Lista cronológica ordenada por data de vencimento crescente
+- Filtragem de despesas:
+  - Apenas despesas (type: 'expense')
+  - Apenas não pagas (isPaid: false)
+  - Com dueDate futuro ou recorrentes
+- UpcomingExpenseItem com informações:
+  - Botão de check para marcar como paga/não paga
+  - Descrição da despesa
+  - Badge "Recorrente" para despesas recorrentes
+  - Badge de parcelas (ex: "2/3") para despesas parceladas
+  - Data de vencimento formatada
+  - Nome da conta/cartão
+  - Valor formatado como moeda
+- Lógica de despesas recorrentes: inclui todas as recorrentes não pagas
+- Lógica de despesas parceladas: mostra parcela atual/total
+- Destaque visual para despesas vencidas (fundo vermelho claro, borda vermelha)
+- Texto riscado e opacidade reduzida para despesas pagas
+- Botão de check com estado visual (verde quando paga, cinza quando não paga)
+- Estado vazio quando não há despesas pendentes
+- Integração com updateTransaction para marcar como paga
+- Atualização automática do status (pending/completed) ao marcar como paga
+
+### 🎨 TOKENS UTILIZADOS
+
+**Semânticas:**
+- `bg-surface` (--color-surface: #FFFFFF) - fundo do widget e items
+- `text-secondary-dark` (--color-secondary-dark: #060A11) - texto preto
+- `border-neutral-300` (--color-neutral-300: #e5e7eb) - bordas
+
+**Primitivas:**
+- `bg-neutral-100` (--color-neutral-100) - fundo do ícone do header
+- `text-neutral-500` (--color-neutral-500: #9ca3af) - texto cinza médio
+- `bg-primary/20` (primary 20% opacidade) - badge recorrente
+- `text-secondary-dark` (--color-secondary-dark: #060A11) - texto do badge recorrente
+- `bg-blue-100` (azul claro) - badge de parcelas
+- `text-blue-600` (--color-blue-600: #2a89ef) - texto do badge de parcelas
+- `bg-red-50` (vermelho muito claro) - fundo de despesa vencida
+- `border-red-200` (vermelho claro) - borda de despesa vencida
+- `text-red-600` (--color-red-600: #e61e32) - texto vermelho (vencida)
+- `bg-green-600` (--color-green-600: #15be78) - fundo do check quando paga
+- `border-green-600` (--color-green-600: #15be78) - borda do check quando paga
+- Espaçamentos: `p-4` (16px), `p-6` (24px), `gap-4` (16px), `gap-3` (12px)
+- Border radius: `rounded-md` (20px), `rounded-full` (100px)
+- Tipografia: `text-heading-sm`, `text-label-sm`, `text-label-xs`, `text-paragraph-sm`
+
+**Conversões realizadas:**
+- Todas as cores usando tokens do design system
+- Badges com cores semânticas (recorrente: primary, parcelas: blue)
+- Espaçamentos padronizados
+- Border radius usando classes Tailwind
+- Tipografia usando classes customizadas
+- Formatação de moeda e datas usando funções utilitárias
+
+### 📁 ARQUIVOS CRIADOS/MODIFICADOS
+- `src/components/dashboard/UpcomingExpenseItem.tsx` - Item individual de despesa
+- `src/components/dashboard/UpcomingExpensesWidget.tsx` - Widget completo
+- `src/pages/Dashboard.tsx` - Atualizado para incluir widget em grid
+
+### 🔨 BUILD STATUS
+✅ Sucesso (tentativas: 2)
+- Tentativa 1: Erro TypeScript (import não usado Transaction) - corrigido
+- Tentativa 2: ✅ Build completo
+- Aviso sobre chunk size (Recharts é grande, mas aceitável)
+
+### 💾 COMMIT
+feat: implementa widget de próximas despesas com lista cronológica e botão de check
+
+### 📊 FUNCIONALIDADES
+- **Lista Cronológica**: Ordenada por data de vencimento crescente
+- **Filtragem Inteligente**: Despesas não pagas com dueDate futuro ou recorrentes
+- **Botão de Check**: Marca/desmarca como paga, atualiza status automaticamente
+- **Badges**: Recorrente e parcelas visíveis
+- **Destaque Vencidas**: Fundo e borda vermelhos para despesas vencidas
+- **Estado Visual**: Texto riscado e opacidade para despesas pagas
+- **Integração**: Usa dados do contexto e atualiza via updateTransaction
+- **Estado Vazio**: Mensagem quando não há despesas pendentes
+
+---
+
 ## ✅ PROMPT 1: Estrutura Base e Configuração
 
 **Status:** ✅ CONCLUÍDO  
@@ -951,8 +1215,11 @@ Sempre seguir a ordem:
 - Implementar botão de alternância com ícones dinâmicos
 - Configurar transições suaves entre estados
 - Sistema de tooltip para sidebar colapsada
-- Item ativo com fundo preto, texto branco e ícone verde-limão
+- Item ativo com fundo verde-limão, texto preto e ícone branco
 - Usar exclusivamente variáveis do design system
+- **Referências Figma:**
+  - Frame: `home-dashboard-responsive` (`42:3096`) - [Link](https://www.figma.com/design/rhijdUnFEiI0fdhlTc0dyF/Workshop---Do-figma-MCP-ao-Cursor-AI-v.3--Community-?node-id=42-3096&m=dev)
+  - Component Set: `Sidebar` (`30:1517`) - [Link](https://www.figma.com/design/rhijdUnFEiI0fdhlTc0dyF/Workshop---Do-figma-MCP-ao-Cursor-AI-v.3--Community-?node-id=30-1517&m=dev)
 
 ### 📱 PROMPT 3: Sistema de Layout e Navegação Mobile
 - Implementar HeaderMobile fixo no topo (<1024px)
