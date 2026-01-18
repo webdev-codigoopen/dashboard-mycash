@@ -1,25 +1,14 @@
 import { Link, useLocation } from 'react-router-dom'
-import { motion, AnimatePresence } from 'framer-motion'
-import { ReactNode } from 'react'
+import { AnimatePresence, motion } from 'framer-motion'
 
 interface SidebarItemProps {
   to: string
-  icon: ReactNode
+  iconSrc: string
   label: string
   isExpanded: boolean
 }
 
-/**
- * Item de navegação da Sidebar
- * Mostra ícone + texto quando expandida, apenas ícone quando colapsada
- * Item ativo tem fundo preto com texto branco e ícone verde-limão
- */
-export default function SidebarItem({
-  to,
-  icon,
-  label,
-  isExpanded,
-}: SidebarItemProps) {
+export default function SidebarItem({ to, iconSrc, label, isExpanded }: SidebarItemProps) {
   const location = useLocation()
   const isActive = location.pathname === to
 
@@ -27,31 +16,26 @@ export default function SidebarItem({
     <Link
       to={to}
       className={`
-        flex items-center rounded-full
+        flex items-center
         transition-all duration-200 ease-in-out
-        ${
-          isActive
-            ? 'bg-primary text-secondary-dark'
-            : 'bg-transparent text-neutral-500 hover:bg-neutral-300/20'
-        }
-        ${isExpanded ? '' : 'justify-center'}
+        ${isActive ? 'bg-primary text-secondary-dark' : 'bg-transparent text-neutral-500 hover:bg-neutral-300/20'}
+        ${isExpanded ? 'justify-start' : 'justify-center'}
       `}
       style={{
-        padding: '12px 16px',
-        gap: '8px',
+        padding: '12px 18px',
+        gap: isExpanded ? '12px' : '0',
+        borderRadius: '999px',
       }}
     >
-      {/* Ícone - sempre visível */}
-      <div
-        className={`
-          flex-shrink-0 w-4 h-4
-          ${isActive ? 'text-secondary-dark' : 'text-neutral-500'}
-        `}
-      >
-        {icon}
-      </div>
+      <motion.img
+        src={iconSrc}
+        alt={label}
+        className="w-6 h-6"
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: 0.2 }}
+      />
 
-      {/* Texto - apenas quando expandida */}
       <AnimatePresence>
         {isExpanded && (
           <motion.span

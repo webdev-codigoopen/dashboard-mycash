@@ -5,62 +5,21 @@ import { ROUTES, ROUTE_NAMES } from '@/constants'
 import SidebarLogo from './SidebarLogo'
 import SidebarItem from './SidebarItem'
 import SidebarUser from './SidebarUser'
-
-/**
- * Ícones SVG inline (temporário - depois podemos usar biblioteca de ícones)
- */
-const HomeIcon = () => (
-  <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-    <path
-      d="M8 1L1 7V15H6V11H10V15H15V7L8 1Z"
-      stroke="currentColor"
-      strokeWidth="1.5"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-    />
-  </svg>
-)
-
-const CreditCardIcon = () => (
-  <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-    <rect x="1" y="4" width="14" height="10" rx="1" stroke="currentColor" strokeWidth="1.5" />
-    <path d="M1 7H15" stroke="currentColor" strokeWidth="1.5" />
-  </svg>
-)
-
-const TransactionsIcon = () => (
-  <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-    <path
-      d="M2 4H14M2 8H14M2 12H10"
-      stroke="currentColor"
-      strokeWidth="1.5"
-      strokeLinecap="round"
-    />
-  </svg>
-)
-
-const ProfileIcon = () => (
-  <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-    <circle cx="8" cy="6" r="3" stroke="currentColor" strokeWidth="1.5" />
-    <path
-      d="M3 14C3 11.5 5.5 9.5 8 9.5C10.5 9.5 13 11.5 13 14"
-      stroke="currentColor"
-      strokeWidth="1.5"
-      strokeLinecap="round"
-    />
-  </svg>
-)
+import homeIcon from '@/assets/icons/fi-rr-home.svg'
+import cardsIcon from '@/assets/icons/fi-rr-credit-card.svg'
+import transactionsIcon from '@/assets/icons/fi-rr-transactions.svg'
+import profileIcon from '@/assets/icons/fi-rr-profile.svg'
+import angleRightIcon from '@/assets/icons/fi-rr-angle-right.svg'
 
 /**
  * Sidebar principal
  * Renderiza apenas em desktop (≥1280px)
- * Estados: expandido (300px) e colapsado (~80px)
+ * Estados: expandido (300px) e colapsado (80px)
  */
 export default function Sidebar() {
   const { isExpanded, toggle } = useSidebar()
   const isDesktop = useMediaQuery('(min-width: 1280px)')
 
-  // Não renderiza em mobile/tablet
   if (!isDesktop) {
     return null
   }
@@ -88,46 +47,23 @@ export default function Sidebar() {
         gap: '56px',
       }}
     >
-      {/* Seção superior: Logo e Menu */}
+      {/* Seção superior */}
       <div className="flex flex-col" style={{ gap: '56px' }}>
-        {/* Logo */}
         <SidebarLogo isExpanded={isExpanded} />
 
-        {/* Menu de navegação */}
-        <nav className="flex flex-col" style={{ gap: '8px' }}>
-          <SidebarItem
-            to={ROUTES.DASHBOARD}
-            icon={<HomeIcon />}
-            label={ROUTE_NAMES[ROUTES.DASHBOARD]}
-            isExpanded={isExpanded}
-          />
-          <SidebarItem
-            to={ROUTES.CARDS}
-            icon={<CreditCardIcon />}
-            label={ROUTE_NAMES[ROUTES.CARDS]}
-            isExpanded={isExpanded}
-          />
-          <SidebarItem
-            to={ROUTES.TRANSACTIONS}
-            icon={<TransactionsIcon />}
-            label={ROUTE_NAMES[ROUTES.TRANSACTIONS]}
-            isExpanded={isExpanded}
-          />
-          <SidebarItem
-            to={ROUTES.PROFILE}
-            icon={<ProfileIcon />}
-            label={ROUTE_NAMES[ROUTES.PROFILE]}
-            isExpanded={isExpanded}
-          />
+        <nav className="flex flex-col" style={{ gap: '12px' }}>
+          <SidebarItem to={ROUTES.DASHBOARD} iconSrc={homeIcon} label={ROUTE_NAMES[ROUTES.DASHBOARD]} isExpanded={isExpanded} />
+          <SidebarItem to={ROUTES.CARDS} iconSrc={cardsIcon} label={ROUTE_NAMES[ROUTES.CARDS]} isExpanded={isExpanded} />
+          <SidebarItem to={ROUTES.TRANSACTIONS} iconSrc={transactionsIcon} label={ROUTE_NAMES[ROUTES.TRANSACTIONS]} isExpanded={isExpanded} />
+          <SidebarItem to={ROUTES.PROFILE} iconSrc={profileIcon} label={ROUTE_NAMES[ROUTES.PROFILE]} isExpanded={isExpanded} />
         </nav>
       </div>
 
-      {/* Seção inferior: Usuário */}
+      {/* Seção inferior */}
       <div className="mt-auto flex flex-col gap-3">
         <SidebarUser isExpanded={isExpanded} />
       </div>
 
-      {/* Botão de toggle - posicionado conforme Figma */}
       <motion.button
         onClick={toggle}
         animate={{
@@ -154,27 +90,12 @@ export default function Sidebar() {
         }}
         aria-label={isExpanded ? 'Colapsar sidebar' : 'Expandir sidebar'}
       >
-        {isExpanded ? (
-          <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path
-              d="M10 12L6 8L10 4"
-              stroke="currentColor"
-              strokeWidth="2"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-            />
-          </svg>
-        ) : (
-          <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path
-              d="M6 4L10 8L6 12"
-              stroke="currentColor"
-              strokeWidth="2"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-            />
-          </svg>
-        )}
+        <motion.img
+          src={angleRightIcon}
+          alt="Toggle sidebar"
+          className="w-4 h-4"
+          style={{ transform: isExpanded ? 'rotate(180deg)' : 'rotate(0deg)' }}
+        />
       </motion.button>
     </motion.aside>
   )

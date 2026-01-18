@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { useMediaQuery } from '@/hooks/useMediaQuery'
 import MenuDropdown from './MenuDropdown'
+import logoOpen from '@/assets/icons/logo-open.svg'
 
 interface HeaderMobileProps {
   userName?: string
@@ -46,8 +47,8 @@ export default function HeaderMobile({
         "
       >
         {/* Logo à esquerda */}
-        <div className="flex items-center">
-          <span className="text-heading-xs font-bold text-secondary-dark">mycash+</span>
+        <div className="flex items-center gap-2">
+          <img src={logoOpen} alt="mycash+" className="h-10 w-auto" />
         </div>
 
         {/* Avatar à direita */}

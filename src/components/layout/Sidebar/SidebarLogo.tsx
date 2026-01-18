@@ -1,4 +1,6 @@
 import { motion } from 'framer-motion'
+import logoOpen from '@/assets/icons/logo-open.svg'
+import logoClose from '@/assets/icons/logo-close.svg'
 
 interface SidebarLogoProps {
   isExpanded: boolean
@@ -6,33 +8,31 @@ interface SidebarLogoProps {
 
 /**
  * Logo da Sidebar
- * Mostra texto completo quando expandida, apenas ícone quando colapsada
+ * Mostra a versão aberta quando expandida e só o ícone quando colapsada
  */
 export default function SidebarLogo({ isExpanded }: SidebarLogoProps) {
   return (
     <div className="flex items-center">
       {isExpanded ? (
-        <motion.div
-          initial={{ opacity: 0, width: 0 }}
-          animate={{ opacity: 1, width: 'auto' }}
-          exit={{ opacity: 0, width: 0 }}
-          transition={{ duration: 0.2 }}
-          className="overflow-hidden"
-        >
-          <span className="text-heading-sm font-bold text-secondary-dark whitespace-nowrap">
-            mycash+
-          </span>
-        </motion.div>
+        <motion.img
+          key="logo-open"
+          src={logoOpen}
+          alt="mycash+"
+          className="h-10 w-auto"
+          initial={{ opacity: 0, x: -16 }}
+          animate={{ opacity: 1, x: 0 }}
+          transition={{ duration: 0.3 }}
+        />
       ) : (
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          exit={{ opacity: 0 }}
-          transition={{ duration: 0.2 }}
-          className="w-8 h-8 rounded-full bg-primary flex items-center justify-center"
-        >
-          <span className="text-label-sm font-bold text-secondary-dark">m</span>
-        </motion.div>
+        <motion.img
+          key="logo-close"
+          src={logoClose}
+          alt="mycash+"
+          className="h-10 w-10"
+          initial={{ opacity: 0, scale: 0.8 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 0.3 }}
+        />
       )}
     </div>
   )
